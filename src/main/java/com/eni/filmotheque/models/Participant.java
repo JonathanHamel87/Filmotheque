@@ -12,6 +12,12 @@ public class Participant {
 	public Participant() {
 	}
 
+	public Participant(long idParticipant, String nom, String prenom) {
+		this.idParticipant = idParticipant;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
+
 	public long getIdParticipant() {
 		return idParticipant;
 	}

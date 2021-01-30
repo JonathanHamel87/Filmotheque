@@ -3,78 +3,78 @@ package com.eni.filmotheque.models;
 import java.util.List;
 
 public class Film {
-	private long idFilm;
-	private String titre;
-	private int annee;
-	private Participant realisateur;
-	private List<Participant> acteurs;
-	private Categorie categorie;
-	private List<Avis> avis;
-	
-	public Film() {
-	}
+    private long idFilm;
+    private String titre;
+    private int annee;
+    private Participant realisateur;
+    private List<Participant> acteurs;
+    private Categorie categorie;
+    private List<Avis> avis;
 
-	public long getIdFilm() {
-		return idFilm;
-	}
+    public Film() {
+    }
 
-	public void setIdFilm(long idFilm) {
-		this.idFilm = idFilm;
-	}
+    public long getIdFilm() {
+        return idFilm;
+    }
 
-	public String getTitre() {
-		return titre;
-	}
+    public void setIdFilm(long idFilm) {
+        this.idFilm = idFilm;
+    }
 
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
+    public String getTitre() {
+        return titre;
+    }
 
-	public int getAnnee() {
-		return annee;
-	}
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
 
-	public void setAnnee(int annee) {
-		this.annee = annee;
-	}
+    public int getAnnee() {
+        return annee;
+    }
 
-	public Participant getRealisateur() {
-		return realisateur;
-	}
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
 
-	public void setRealisateur(Participant realisateur) {
-		this.realisateur = realisateur;
-	}
+    public Participant getRealisateur() {
+        return realisateur;
+    }
 
-	public List<Participant> getActeurs() {
-		return acteurs;
-	}
+    public void setRealisateur(Participant realisateur) {
+        this.realisateur = realisateur;
+    }
 
-	public void setActeurs(List<Participant> acteurs) {
-		this.acteurs = acteurs;
-	}
+    public List<Participant> getActeurs() {
+        return acteurs;
+    }
 
-	public Categorie getCategorie() {
-		return categorie;
-	}
+    public void setActeurs(List<Participant> acteurs) {
+        this.acteurs = acteurs;
+    }
 
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
+    public Categorie getCategorie() {
+        return categorie;
+    }
 
-	public List<Avis> getAvis() {
-		return avis;
-	}
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
 
-	public void setAvis(List<Avis> avis) {
-		this.avis = avis;
-	}
+    public List<Avis> getAvis() {
+        return avis;
+    }
 
-	@Override
-	public String toString() {
-		return "Film [idFilm=" + idFilm + ", titre=" + titre + ", annee=" + annee + ", realisateur=" + realisateur
-				+ ", acteurs=" + acteurs + ", categorie=" + categorie + ", avis=" + avis + "]";
-	}
-	
-	
+    public void setAvis(List<Avis> avis) {
+        this.avis = avis;
+    }
+
+    @Override
+    public String toString() {
+        return "Film [idFilm=" + idFilm + ", titre=" + titre + ", annee=" + annee + ", realisateur=" + realisateur
+                + ", acteurs=" + acteurs + ", categorie=" + categorie + ", avis=" + avis + "]";
+    }
+
+
 }

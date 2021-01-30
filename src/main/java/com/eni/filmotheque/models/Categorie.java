@@ -7,9 +7,12 @@ public class Categorie {
 	
 	public Categorie() {
 	}
-	
-	
-	
+
+	public Categorie(long idCategorie, String label) {
+		this.idCategorie = idCategorie;
+		this.label = label;
+	}
+
 	public long getIdCategorie() {
 		return idCategorie;
 	}
