@@ -1,68 +1,28 @@
 package com.eni.filmotheque.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Getter @Setter @NoArgsConstructor @ToString
 public class Participant {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idParticipant;
+
 	private String nom;
+
 	private String prenom;
+
+	@OneToMany(mappedBy = "realisateur")
 	private List<Film> listeFilmRealise;
+
+	@ManyToMany(mappedBy = "acteurs")
 	private List<Film> listeFilmJoue;
-	
-	public Participant() {
-	}
 
-	public Participant(long idParticipant, String nom, String prenom) {
-		this.idParticipant = idParticipant;
-		this.nom = nom;
-		this.prenom = prenom;
-	}
-
-	public long getIdParticipant() {
-		return idParticipant;
-	}
-
-	public void setIdParticipant(long idParticipant) {
-		this.idParticipant = idParticipant;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
-	public List<Film> getListeFilmRealise() {
-		return listeFilmRealise;
-	}
-
-	public void setListeFilmRealise(List<Film> listeFilmRealise) {
-		this.listeFilmRealise = listeFilmRealise;
-	}
-
-	public List<Film> getListeFilmJoue() {
-		return listeFilmJoue;
-	}
-
-	public void setListeFilmJoue(List<Film> listeFilmJoue) {
-		this.listeFilmJoue = listeFilmJoue;
-	}
-
-	@Override
-	public String toString() {
-		return "Participant [idParticipant=" + idParticipant + ", nom=" + nom + ", prenom=" + prenom
-				+ ", listeFilmRealise=" + listeFilmRealise + ", listeFilmJoue=" + listeFilmJoue + "]";
-	}
-
-	
 }

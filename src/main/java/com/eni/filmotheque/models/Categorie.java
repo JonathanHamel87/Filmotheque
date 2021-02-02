@@ -1,44 +1,22 @@
 package com.eni.filmotheque.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+@Getter @Setter @NoArgsConstructor @ToString
 public class Categorie {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCategorie;
+
 	private String label;
-	
-	public Categorie() {
-	}
 
-	public Categorie(long idCategorie, String label) {
-		this.idCategorie = idCategorie;
-		this.label = label;
-	}
-
-	public long getIdCategorie() {
-		return idCategorie;
-	}
-
-
-
-	public void setIdCategorie(long idCategorie) {
-		this.idCategorie = idCategorie;
-	}
-
-
-
-	public String getLabel() {
-		return label;
-	}
-
-
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Categorie [idCategorie=" + idCategorie + ", label=" + label + "]";
-	}
 }

@@ -45,6 +45,7 @@ public class FilmController {
     public String afficheDetailFilm(@PathVariable long id, Model model) {
         Film film = filmService.getFilmById(id);
         model.addAttribute("film", film);
+
         return "detailFilm";
     }
 

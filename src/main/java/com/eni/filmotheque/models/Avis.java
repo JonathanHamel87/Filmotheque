@@ -1,48 +1,27 @@
 package com.eni.filmotheque.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
+
+@Entity
+@Getter @Setter @NoArgsConstructor @ToString
 public class Avis {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idAvis;
+
 	private String libelle;
+
+	@ManyToOne
+	@JoinColumn(name = "idFilm", nullable = false)
 	private Film film;
+
+	@ManyToOne
+	@JoinColumn(name = "idMembre", nullable = false)
 	private Membre membre;
-	
-	public Avis() {
-	}
 
-	public long getIdAvis() {
-		return idAvis;
-	}
-
-	public void setIdAvis(long idAvis) {
-		this.idAvis = idAvis;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
-	public Film getFilm() {
-		return film;
-	}
-
-	public void setFilm(Film film) {
-		this.film = film;
-	}
-
-	public Membre getMembre() {
-		return membre;
-	}
-
-	public void setMembre(Membre membre) {
-		this.membre = membre;
-	}
-
-	@Override
-	public String toString() {
-		return "Avis [idAvis=" + idAvis + ", libelle=" + libelle + ", film=" + film + ", membre=" + membre + "]";
-	}
 }

@@ -1,80 +1,41 @@
 package com.eni.filmotheque.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Getter @Setter @NoArgsConstructor @ToString
 public class Film {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idFilm;
+
     private String titre;
+
     private int annee;
+
+    @ManyToOne
+    @JoinColumn(name = "idRealisateur", nullable = false)
     private Participant realisateur;
+
+    @ManyToMany
+    @JoinTable(
+            name = "acteurs_films",
+            joinColumns = @JoinColumn(name = "idFilm"),
+            inverseJoinColumns = @JoinColumn(name = "idParticipant")
+    )
     private List<Participant> acteurs;
+
+    @ManyToOne
+    @JoinColumn(name = "idCategorie", nullable = false)
     private Categorie categorie;
+
+    @OneToMany(mappedBy = "film")
     private List<Avis> avis;
-
-    public Film() {
-    }
-
-    public long getIdFilm() {
-        return idFilm;
-    }
-
-    public void setIdFilm(long idFilm) {
-        this.idFilm = idFilm;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public int getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(int annee) {
-        this.annee = annee;
-    }
-
-    public Participant getRealisateur() {
-        return realisateur;
-    }
-
-    public void setRealisateur(Participant realisateur) {
-        this.realisateur = realisateur;
-    }
-
-    public List<Participant> getActeurs() {
-        return acteurs;
-    }
-
-    public void setActeurs(List<Participant> acteurs) {
-        this.acteurs = acteurs;
-    }
-
-    public Categorie getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
-    }
-
-    public List<Avis> getAvis() {
-        return avis;
-    }
-
-    public void setAvis(List<Avis> avis) {
-        this.avis = avis;
-    }
-
-    @Override
-    public String toString() {
-        return "Film [idFilm=" + idFilm + ", titre=" + titre + ", annee=" + annee + ", realisateur=" + realisateur
-                + ", acteurs=" + acteurs + ", categorie=" + categorie + ", avis=" + avis + "]";
-    }
-
 
 }
