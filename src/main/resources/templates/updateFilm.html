@@ -5,7 +5,7 @@
 
 <div th:replace="fragments/header :: nav"></div>
 
-<h1 class="col-12 text-center mb-3 mt-3">Ajout d'un film</h1>
+<h1 class="col-12 text-center mb-5 mt-5">Ajout d'un film</h1>
 
 <form method="post" th:action="@{/modifierFilm}" th:object="${film}" class="col-10 offset-1">
 
@@ -13,50 +13,64 @@
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Titre :</label>
-        <div class="col-sm-10">
+        <div class="col-sm-9">
             <input type="text" class="form-control" placeholder="Titre du film" th:field="*{titre}" required>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Année :</label>
-        <div class="col-sm-10">
+        <div class="col-sm-9">
             <input type="text" class="form-control" placeholder="Année du film" th:field="*{annee}" required>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Catégorie :</label>
-        <div class="col-sm-10">
-            <select class="form-control" th:field="*{idCategorie}" required>
+        <div class="col-sm-9">
+            <select class="form-control categorieSelect" th:field="*{idCategorie}" required>
                 <option value="">Choisir une catégorie</option>
                 <option th:each="categorie: ${categories}" th:value="${categorie.idCategorie}" th:text="${categorie.label}"></option>
             </select>
         </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-light addCategorie"><i class="fas fa-plus"></i></button>
+        </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Réalisateur :</label>
-        <div class="col-sm-10">
-            <select class="form-control" th:field="*{idRealisateur}" required>
+        <div class="col-sm-9">
+            <select class="form-control ParticipantSelect" th:field="*{idRealisateur}" required>
                 <option value="">Choisir un realisateur</option>
                 <option th:each="realisateur: ${realisateurs}" th:value="${realisateur.idParticipant}" th:text="${realisateur.prenom} + ' ' + ${realisateur.nom}"></option>
             </select>
         </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-light addRealisateur"><i class="fas fa-plus"></i></button>
+        </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Acteurs :</label>
-        <div class="col-sm-10">
-            <select class="form-control" th:field="*{idActeurs}" required>
+        <div class="col-sm-9">
+            <select class="form-control ParticipantSelect" th:field="*{idActeurs}" required>
                 <option value="">Choisir un acteur</option>
                 <option th:each="acteur: ${acteurs}" th:value="${acteur.idParticipant}" th:text="${acteur.prenom} + ' ' + ${acteur.nom}"></option>
             </select>
         </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-light addActeur"><i class="fas fa-plus"></i></button>
+        </div>
     </div>
-    <div class="form-group row">
-        <div class="col-sm-12 d-flex flex-row justify-content-end">
+    <div class="form-group row mt-5">
+        <div class="col-sm-11 d-flex flex-row justify-content-end">
             <button type="submit" class="btn btn-primary mr-1">Mettre à jour</button>
             <a href="/" class="btn btn-dark">Annuler</a>
         </div>
     </div>
 </form>
 
+<div class="blackFilter">
+    <div class="popin"></div>
+</div>
+
 </body>
+<script src="/js/addFilm.js"></script>
 </html>

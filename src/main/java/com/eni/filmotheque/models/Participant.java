@@ -1,5 +1,6 @@
 package com.eni.filmotheque.models;
 
+import com.sun.istack.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

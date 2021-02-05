@@ -4,17 +4,12 @@ import com.eni.filmotheque.forms.FilmForm;
 import com.eni.filmotheque.models.Categorie;
 import com.eni.filmotheque.models.Film;
 import com.eni.filmotheque.models.Participant;
-import com.eni.filmotheque.services.ActeurService;
-import com.eni.filmotheque.services.CategorieService;
-import com.eni.filmotheque.services.FilmService;
-import com.eni.filmotheque.services.RealisateurService;
+import com.eni.filmotheque.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +17,12 @@ import java.util.List;
 @Controller
 public class FilmController {
     private FilmService filmService;
-    private ActeurService acteurService;
-    private RealisateurService realisateurService;
+    private ParticipantService participantService;
     private CategorieService categorieService;
 
-    public FilmController(FilmService filmService, ActeurService acteurService, RealisateurService realisateurService, CategorieService categorieService) {
+    public FilmController(FilmService filmService, ParticipantService participantService, CategorieService categorieService) {
         this.filmService = filmService;
-        this.acteurService = acteurService;
-        this.realisateurService = realisateurService;
+        this.participantService = participantService;
         this.categorieService = categorieService;
     }
 
@@ -51,8 +44,8 @@ public class FilmController {
 
     @GetMapping("/ajouterFilm")
     public String ajouterFilmView(Model model) {
-        model.addAttribute("acteurs", acteurService.getListActeurs());
-        model.addAttribute("realisateurs", realisateurService.getListRealisateur());
+        model.addAttribute("acteurs", participantService.getListParticipant());
+        model.addAttribute("realisateurs", participantService.getListParticipant());
         model.addAttribute("categories", categorieService.getListCategories());
         model.addAttribute("film", new FilmForm());
 
@@ -67,8 +60,8 @@ public class FilmController {
         newFilm.setTitre(film.getTitre());
         newFilm.setAnnee(film.getAnnee());
         newFilm.setCategorie(categorieService.getCategorieById(film.getIdCategorie()));
-        newFilm.setRealisateur(realisateurService.getRealisateurById(film.getIdRealisateur()));
-        newFilm.setActeurs(acteurService.getListActeursByListId(film.getIdActeurs()));
+        newFilm.setRealisateur(participantService.getParticipantById(film.getIdRealisateur()));
+        newFilm.setActeurs(participantService.getListParticipantsByListId(film.getIdActeurs()));
 
         filmService.addFilm(newFilm);
 
@@ -92,8 +85,8 @@ public class FilmController {
         filmForm.setIdRealisateur(film.getRealisateur().getIdParticipant());
         filmForm.setIdActeurs(idActeurs);
 
-        model.addAttribute("acteurs", acteurService.getListActeurs());
-        model.addAttribute("realisateurs", realisateurService.getListRealisateur());
+        model.addAttribute("acteurs", participantService.getListParticipant());
+        model.addAttribute("realisateurs", participantService.getListParticipant());
         model.addAttribute("categories", categorieService.getListCategories());
         model.addAttribute("film", filmForm);
 
@@ -108,8 +101,8 @@ public class FilmController {
         newFilm.setTitre(film.getTitre());
         newFilm.setAnnee(film.getAnnee());
         newFilm.setCategorie(categorieService.getCategorieById(film.getIdCategorie()));
-        newFilm.setRealisateur(realisateurService.getRealisateurById(film.getIdRealisateur()));
-        newFilm.setActeurs(acteurService.getListActeursByListId(film.getIdActeurs()));
+        newFilm.setRealisateur(participantService.getParticipantById(film.getIdRealisateur()));
+        newFilm.setActeurs(participantService.getListParticipantsByListId(film.getIdActeurs()));
 
         filmService.updateFilm(newFilm);
 
@@ -120,5 +113,34 @@ public class FilmController {
     public String delFilm(@PathVariable long id){
         filmService.deleteFilm(filmService.getFilmById(id));
         return "redirect:/";
+    }
+
+    @GetMapping("/showPopup/{classe}")
+    public String showPopup(@PathVariable String classe){
+        return "modals/add"+classe;
+    }
+
+    @PostMapping("/addCategorie")
+    @ResponseBody
+    public List<Categorie> addCategorie(@RequestParam String label){
+        if (categorieService.getCategorieByLabel(label).getIdCategorie() == 0){
+            Categorie categ = new Categorie();
+            categ.setLabel(label);
+            categorieService.addCategorie(categ);
+        }
+        return categorieService.getListCategories();
+    }
+
+    @PostMapping("/addParticipant")
+    @ResponseStatus(HttpStatus.OK)
+    public void addParticipant(@RequestParam String nom, @RequestParam String prenom){
+        if (participantService.getParticipantByNomPrenom(nom, prenom).getIdParticipant() == 0){
+            Participant participant = new Participant();
+            participant.setNom(nom);
+            participant.setPrenom(prenom);
+            participant.setListeFilmJoue(new ArrayList<>());
+            participant.setListeFilmRealise(new ArrayList<>());
+            participantService.addParticipant(participant);
+        }
     }
 }

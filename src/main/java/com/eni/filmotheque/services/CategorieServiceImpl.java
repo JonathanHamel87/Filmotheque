@@ -23,4 +23,19 @@ public class CategorieServiceImpl implements CategorieService{
     public Categorie getCategorieById(long id) {
         return categorieRepo.findById(id).get();
     }
+
+    @Override
+    public Categorie getCategorieByLabel(String label) {
+        Categorie categ = categorieRepo.findOneByLabel(label);
+
+        if (categ == null)
+            categ = new Categorie();
+
+        return categ;
+    }
+
+    @Override
+    public void addCategorie(Categorie categorie) {
+        categorieRepo.save(categorie);
+    }
 }
